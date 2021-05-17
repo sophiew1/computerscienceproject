@@ -9,7 +9,14 @@ controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
 function doSomething () {
 	
 }
+sprites.onOverlap(SpriteKind.Player, SpriteKind.Enemy, function (sprite, otherSprite) {
+    info.changeScoreBy(-100)
+    Raindrop.destroy(effects.fountain, 500)
+})
+let Raindrop: Sprite = null
 let mySprite: Sprite = null
+info.setScore(300)
+info.setLife(3)
 mySprite = sprites.create(assets.image`socks`, SpriteKind.Player)
 controller.moveSprite(mySprite)
 scene.cameraFollowSprite(mySprite)
@@ -165,7 +172,7 @@ scene.setTile(3, img`
     . . . . . . . . . . . . . . . . 
     . . . . . . . . . . . . . . . . 
     . . . . . . . . . . . . . . . . 
-    `, true)
+    `, false)
 scene.setTile(14, img`
     . . . . e e e e e e . . . . . . 
     . . . . e e e e e e . . . . . . 
@@ -221,3 +228,25 @@ scene.setTile(4, img`
     . . . . . . . . . . . . . . . . 
     `, true)
 mySprite.setVelocity(-29, 50)
+game.onUpdateInterval(1000, function () {
+    Raindrop = sprites.createProjectileFromSide(img`
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . 8 . . . . . . . . . . 
+        . . . . . 8 1 . . . . . . . . . 
+        . . . . . 8 1 1 . . . . . . . . 
+        . . . . . 8 9 1 1 9 . . . . . . 
+        . . . . . 8 8 9 9 9 9 8 . . . . 
+        . . . . . . 8 8 9 9 9 8 . . . . 
+        . . . . . . . 8 8 9 9 8 . . . . 
+        . . . . . . . . 8 8 8 . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        `, 50, 50)
+    Raindrop.x = randint(0, 155)
+    Raindrop.setKind(SpriteKind.Enemy)
+})
