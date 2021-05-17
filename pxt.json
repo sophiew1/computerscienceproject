@@ -4,7 +4,8 @@
     "dependencies": {
         "device": "*",
         "color-coded-tilemap": "*",
-        "Game-Starter": "github:mrlilholt/game-starter#master"
+        "Game-Starter": "github:mrlilholt/game-starter#master",
+        "controller": "*"
     },
     "files": [
         "main.blocks",

@@ -1,13 +1,20 @@
 scene.onHitWall(SpriteKind.Player, function (sprite, location) {
     scene.setBackgroundColor(6)
 })
+controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
+    if (mySprite.isHittingTile(CollisionDirection.Bottom)) {
+        mySprite.vy += -250
+    }
+})
 function doSomething () {
 	
 }
-let mySprite = sprites.create(assets.image`socks`, SpriteKind.Player)
+let mySprite: Sprite = null
+mySprite = sprites.create(assets.image`socks`, SpriteKind.Player)
 controller.moveSprite(mySprite)
 scene.cameraFollowSprite(mySprite)
 mySprite.setPosition(6, 56)
+mySprite.ay = 500
 tiles.setWallAt(tiles.getTileLocation(0, 0), true)
 scene.setBackgroundImage(img`
     dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
@@ -132,7 +139,7 @@ scene.setBackgroundImage(img`
     4444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444
     `)
 scene.setTileMap(img`
-    . . . . . . . . . . 
+    . . . . . . . . . 3 
     . . . . . . . . . 7 
     . . . . . . . . 7 7 
     . . . . . . 7 . . e 
@@ -141,6 +148,24 @@ scene.setTileMap(img`
     . e . e . . e . . e 
     4 4 4 4 4 4 4 4 4 4 
     `, TileScale.Sixteen)
+scene.setTile(3, img`
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . 5 . . . . . . . . 
+    . . . . . . . 5 . . . . . . . . 
+    . . . . . . 5 5 5 . . . . . . . 
+    . . . . 5 5 5 5 5 5 5 . . . . . 
+    . . . . . . 5 5 5 . . . . . . . 
+    . . . . . . . 5 . . . . . . . . 
+    . . . . . . . 5 . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    `, true)
 scene.setTile(14, img`
     . . . . e e e e e e . . . . . . 
     . . . . e e e e e e . . . . . . 
