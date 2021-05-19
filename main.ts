@@ -10,6 +10,7 @@ function doSomething () {
 	
 }
 sprites.onOverlap(SpriteKind.Player, SpriteKind.Enemy, function (sprite, otherSprite) {
+    info.changeLifeBy(-1)
     info.changeScoreBy(-100)
     Raindrop.destroy(effects.fountain, 500)
 })
