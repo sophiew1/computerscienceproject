@@ -1,14 +1,12 @@
-scene.onHitWall(SpriteKind.Player, function (sprite, location) {
-    scene.setBackgroundColor(6)
+scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile`, function (sprite, location) {
+    info.changeScoreBy(1000)
+    info.changeLifeBy(1)
 })
 controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
     if (mySprite.isHittingTile(CollisionDirection.Bottom)) {
         mySprite.vy += -250
     }
 })
-function doSomething () {
-	
-}
 sprites.onOverlap(SpriteKind.Player, SpriteKind.Enemy, function (sprite, otherSprite) {
     info.changeLifeBy(-1)
     info.changeScoreBy(-100)
@@ -17,7 +15,7 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.Enemy, function (sprite, otherSp
 let Raindrop: Sprite = null
 let mySprite: Sprite = null
 info.setScore(300)
-info.setLife(3)
+info.setLife(9)
 mySprite = sprites.create(assets.image`socks`, SpriteKind.Player)
 controller.moveSprite(mySprite)
 scene.cameraFollowSprite(mySprite)
@@ -147,33 +145,34 @@ scene.setBackgroundImage(img`
     4444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444
     `)
 scene.setTileMap(img`
-    . . . . . . . . . 3 
+    . . . . . . . . . . 
     . . . . . . . . . 7 
-    . . . . . . . . 7 7 
-    . . . . . . 7 . . e 
-    . . . 7 . 7 7 7 . e 
+    . . . 3 . . 6 . 7 7 
+    . . . 7 . . 7 . . 7 
+    . . 7 7 7 7 7 7 . e 
     . 7 . e . . e . . e 
     . e . e . . e . . e 
     4 4 4 4 4 4 4 4 4 4 
-    `, TileScale.Sixteen)
-scene.setTile(3, img`
+    `)
+scene.setTile(6, img`
     . . . . . . . . . . . . . . . . 
     . . . . . . . . . . . . . . . . 
     . . . . . . . . . . . . . . . . 
-    . . . . . . . 5 . . . . . . . . 
-    . . . . . . . 5 . . . . . . . . 
-    . . . . . . 5 5 5 . . . . . . . 
-    . . . . 5 5 5 5 5 5 5 . . . . . 
-    . . . . . . 5 5 5 . . . . . . . 
-    . . . . . . . 5 . . . . . . . . 
-    . . . . . . . 5 . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
+    . . . . . . 5 . . . . . . . . . 
+    . . . . . . 5 . . . . 5 . . . . 
+    . . 5 . . . 5 . . . 5 . . . . . 
+    . . 5 . . 5 . . . 5 5 . . . . . 
+    . . 5 5 . 5 . . 5 . . . . . . . 
+    . 5 5 5 . 5 5 5 . . . . . . . . 
+    . . 5 5 5 5 5 5 5 5 5 . . . . . 
+    . . . . 5 5 5 . . . . . . . . . 
+    . . . . 5 5 5 5 5 . . . . . . . 
+    . . . 5 . 5 . . 5 5 . . . . . . 
+    . 5 5 5 . 5 . . . 5 . . . . . . 
+    . . . . . 5 . . . . . . . . . . 
     . . . . . . . . . . . . . . . . 
     `, false)
+scene.setTile(3, assets.tile`myTile`, false)
 scene.setTile(14, img`
     . . . . e e e e e e . . . . . . 
     . . . . e e e e e e . . . . . . 
@@ -229,7 +228,10 @@ scene.setTile(4, img`
     . . . . . . . . . . . . . . . . 
     `, true)
 mySprite.setVelocity(-29, 50)
-game.onUpdateInterval(1000, function () {
+game.onUpdateInterval(5000, function () {
+	
+})
+game.onUpdateInterval(200, function () {
     Raindrop = sprites.createProjectileFromSide(img`
         . . . . . . . . . . . . . . . . 
         . . . . . . . . . . . . . . . . 
